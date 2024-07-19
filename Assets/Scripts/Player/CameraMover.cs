@@ -23,7 +23,7 @@ internal class CameraMover : MonoBehaviour
         _position = new Vector3(_target.position.x - _lagX, _transform.position.y, _target.position.z - _lagZ);
 
         ClampPosition();
-        
+
         _transform.position = _position;
     }
 
