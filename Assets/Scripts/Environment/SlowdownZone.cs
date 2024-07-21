@@ -17,7 +17,7 @@ public class SlowdownZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out ISpeedController speedController))
-            speedController.MultiplySpeed(0.6f);
+            speedController.MultiplySpeed(_slowdownFactor);
     }
 
     private void OnTriggerExit(Collider other)
