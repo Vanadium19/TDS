@@ -1,25 +1,22 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerAttacker : MonoBehaviour
 {
-    [Tooltip("IGun")]
-    [SerializeField] private GameObject _weapon;
+    [Inject]
+    private IGun _defaultGun;
+    private IGun _currentGun;
 
-    private IGun _gun;
-
-    private void OnValidate()
+    private void Start()
     {
-        if (_weapon.TryGetComponent(out IGun gun))
-            _gun = gun;
-        else
-            _weapon = null;
+        _currentGun = _defaultGun;
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _gun.Shoot();
+            _currentGun.Shoot();
         }
     }
 }

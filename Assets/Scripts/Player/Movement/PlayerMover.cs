@@ -1,18 +1,19 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
 internal class PlayerMover : MonoBehaviour, ISpeedController
 {
     [SerializeField] private float _speed;
 
-    private Rigidbody _rigidbody;
+    [Inject]
     private IMoveInput _moveInput;
+    private Rigidbody _rigidbody;
     private float _currentSpeed;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _moveInput = gameObject.AddComponent<MoveInput>();
     }
 
     private void Start()
