@@ -1,12 +1,20 @@
 using UnityEngine;
 
+[RequireComponent(typeof(ProjectilesPool))]
 internal class Gun : MonoBehaviour, IGun
 {
     [SerializeField] private float _delay;
-    [SerializeField] private float _damage;
-    [SerializeField] private Transform _startPoint;
+    [SerializeField] private Transform _startPoint;    
 
+    private ProjectilesPool _pool;
     private float _delayCounter;
+
+    protected Transform StartPoint => _startPoint;
+
+    private void Awake()
+    {
+        _pool = GetComponent<ProjectilesPool>();
+    }
 
     private void Update()
     {
@@ -19,14 +27,15 @@ internal class Gun : MonoBehaviour, IGun
         if (_delayCounter >= 0)
             return;
 
-        if (Physics.Raycast(_startPoint.position, _startPoint.forward, out RaycastHit hitInfo))
-        {
-            if (hitInfo.collider.TryGetComponent(out IDamageable enemy))
-            {
-                enemy.TakeDamage(_damage);
-            }
-        }
+        PutBullet();
 
         _delayCounter = _delay;
+    }
+
+    protected virtual void PutBullet()
+    {
+        var bullet = _pool.Pull();
+        bullet.gameObject.SetActive(true);
+        bullet.Hurl(_startPoint);
     }
 }

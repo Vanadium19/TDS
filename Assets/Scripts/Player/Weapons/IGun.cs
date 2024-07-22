@@ -1,4 +1,4 @@
-internal interface IGun
+public interface IGun
 {
     public void Shoot();
 }
