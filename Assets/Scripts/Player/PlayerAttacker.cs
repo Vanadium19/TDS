@@ -3,14 +3,7 @@ using Zenject;
 
 public class PlayerAttacker : MonoBehaviour
 {
-    [Inject]
-    private IGun _defaultGun;
     private IGun _currentGun;
-
-    private void Start()
-    {
-        _currentGun = _defaultGun;
-    }
 
     private void Update()
     {
@@ -18,5 +11,10 @@ public class PlayerAttacker : MonoBehaviour
         {
             _currentGun.Shoot();
         }
+    }
+
+    public void ChangeGun(IGun gun)
+    {
+        _currentGun = gun;
     }
 }
