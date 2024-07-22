@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Grenade : Projectile
 {
+    [SerializeField] private float _damage;
     [SerializeField] private float _explosionRadius = 2f;
 
     private Camera _camera;
@@ -46,7 +46,7 @@ public class Grenade : Projectile
         {
             if (collider.TryGetComponent(out IDamageable enemy))
             {
-                ApplyDamage(enemy);
+                enemy.TakeDamage(_damage);
             }
         }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShotgunBullet : Projectile
+public class ShotgunBullet : Bullet
 {
     [SerializeField] private float _range = 7f;
 

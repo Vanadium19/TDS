@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5378286677531326831}
   - component: {fileID: 6119737595114363732}
   - component: {fileID: 1515965296347409064}
-  - component: {fileID: 984038873941935998}
+  - component: {fileID: -1297354078734658221}
   m_Layer: 8
   m_Name: KalashnikovBullet
   m_TagString: Untagged
@@ -136,7 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &984038873941935998
+--- !u!114 &-1297354078734658221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,8 +145,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7294320570030866097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2289d161a70eb354bb9d33153550598c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3efef4ef64b1dc847bbda206fe0e6182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 1
   _speed: 20
+  _damage: 1
