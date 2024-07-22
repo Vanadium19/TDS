@@ -5,9 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
-    [SerializeField] private float _speed;
-
+    private float _speed;
+    private Transform _target;
     private Transform _transform;
     private Rigidbody _rigidbody;
     private Vector3 _direction;
@@ -23,5 +22,11 @@ public class EnemyMover : MonoBehaviour
         _direction = Vector3.ProjectOnPlane(_target.position - _transform.position, Vector3.up).normalized;
 
         _rigidbody.velocity = _direction * _speed + Vector3.up * _rigidbody.velocity.y;
+    }
+
+    public void Initialize(Transform target, float speed)
+    {
+        _target = target;
+        _speed = speed;
     }
 }
