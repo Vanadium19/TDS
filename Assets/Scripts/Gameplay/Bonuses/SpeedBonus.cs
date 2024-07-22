@@ -6,7 +6,11 @@ public class SpeedBonus : Bonus
     {
         if (other.TryGetComponent(out SpeedBuff buff))
         {
-            buff.enabled = true;
+            if (buff.enabled)
+                buff.ResetTime();
+            else
+                buff.enabled = true;
+
             gameObject.SetActive(false);
         }
     }
