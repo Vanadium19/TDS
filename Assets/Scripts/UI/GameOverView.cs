@@ -20,12 +20,5 @@ namespace UI
             if (_scoreCounter.Score > GameSaver.Score)
                 _newRecordTitle.SetActive(true);
         }
-
-        [ContextMenu("Reset")]
-        public void Reset()
-        {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
-        }
     }
 }
