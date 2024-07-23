@@ -1,4 +1,6 @@
 using Gameplay;
+using Player;
+using Player.Movement;
 using UnityEngine;
 using Zenject;
 

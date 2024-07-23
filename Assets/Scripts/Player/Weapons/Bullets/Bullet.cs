@@ -1,15 +1,18 @@
 using Enemies;
 using UnityEngine;
 
-public class Bullet : Projectile
+namespace Player.Weapons.Bullets
 {
-    [SerializeField] private float _damage;
-
-    private void OnCollisionEnter(Collision collision)
+    internal class Bullet : Projectile
     {
-        if (collision.collider.TryGetComponent(out IDamageable enemy))
-            enemy.TakeDamage(_damage);
+        [SerializeField] private float _damage;
 
-        Push();
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.TryGetComponent(out IDamageable enemy))
+                enemy.TakeDamage(_damage);
+
+            Push();
+        }
     }
 }

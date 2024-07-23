@@ -1,3 +1,5 @@
+using Player;
+using Player.Weapons;
 using UnityEngine;
 
 namespace Gameplay.Bonuses

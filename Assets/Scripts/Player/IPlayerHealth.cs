@@ -1,8 +1,11 @@
 using System;
 
-public interface IPlayerHealth
+namespace Player
 {
-    public event Action PlayerDied;
+    public interface IPlayerHealth
+    {
+        public event Action PlayerDied;
 
-    public void Die();
+        public void Die();
+    }
 }

@@ -1,53 +1,56 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-internal class PlayerRotator : MonoBehaviour
+namespace Player.Movement
 {
-    private readonly float _angleError = 2.5f;
-
-    [SerializeField] private float _angularSpeed = 180f;
-
-    private float _speed;
-    private Camera _camera;
-    private Transform _transform;
-    private Rigidbody _rigidbody;
-    private Vector3 _lookPosition;
-    private float _cursorPositionZ;
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    internal class PlayerRotator : MonoBehaviour
     {
-        _camera = Camera.main;
-        _transform = transform;
-        _rigidbody = GetComponent<Rigidbody>();
-        _speed = Mathf.Deg2Rad * _angularSpeed;
-        _cursorPositionZ = _camera.transform.position.y;
-    }
+        private readonly float _angleError = 2.5f;
 
-    private void Update()
-    {
-        Rotate();
-    }
+        [SerializeField] private float _angularSpeed = 180f;
 
-    private void Rotate()
-    {
-        CalculateLookPosition();
+        private float _speed;
+        private Camera _camera;
+        private Transform _transform;
+        private Rigidbody _rigidbody;
+        private Vector3 _lookPosition;
+        private float _cursorPositionZ;
 
-        float angle = Vector3.SignedAngle(_transform.forward, _lookPosition, Vector3.up);
+        private void Awake()
+        {
+            _camera = Camera.main;
+            _transform = transform;
+            _rigidbody = GetComponent<Rigidbody>();
+            _speed = Mathf.Deg2Rad * _angularSpeed;
+            _cursorPositionZ = _camera.transform.position.y;
+        }
 
-        if (Mathf.Abs(angle) <= _angleError)
-            _rigidbody.angularVelocity = Vector3.zero;
-        else
-            _rigidbody.angularVelocity = angle > 0 ? Vector3.up * _speed : Vector3.down * _speed;
-    }
+        private void Update()
+        {
+            Rotate();
+        }
 
-    private void CalculateLookPosition()
-    {
-        var mousePosition = Input.mousePosition;
+        private void Rotate()
+        {
+            CalculateLookPosition();
 
-        var cursorPosition = new Vector3(mousePosition.x, mousePosition.y, _cursorPositionZ);
-        cursorPosition = _camera.ScreenToWorldPoint(cursorPosition);
+            float angle = Vector3.SignedAngle(_transform.forward, _lookPosition, Vector3.up);
 
-        cursorPosition.y = _transform.position.y;
-        _lookPosition = (cursorPosition - _transform.position).normalized;
+            if (Mathf.Abs(angle) <= _angleError)
+                _rigidbody.angularVelocity = Vector3.zero;
+            else
+                _rigidbody.angularVelocity = angle > 0 ? Vector3.up * _speed : Vector3.down * _speed;
+        }
+
+        private void CalculateLookPosition()
+        {
+            var mousePosition = Input.mousePosition;
+
+            var cursorPosition = new Vector3(mousePosition.x, mousePosition.y, _cursorPositionZ);
+            cursorPosition = _camera.ScreenToWorldPoint(cursorPosition);
+
+            cursorPosition.y = _transform.position.y;
+            _lookPosition = (cursorPosition - _transform.position).normalized;
+        }
     }
 }

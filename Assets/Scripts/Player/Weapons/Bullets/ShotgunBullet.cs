@@ -1,31 +1,34 @@
 using UnityEngine;
 
-public class ShotgunBullet : Bullet
+namespace Player.Weapons.Bullets
 {
-    [SerializeField] private float _range = 7f;
-
-    private float _delay;
-    private float _timeCounter;
-
-    private void Start()
+    internal class ShotgunBullet : Bullet
     {
-        _timeCounter = _delay = _range / Speed;
-    }
+        [SerializeField] private float _range = 7f;
 
-    private void Update()
-    {
-        if (_timeCounter > 0)
+        private float _delay;
+        private float _timeCounter;
+
+        private void Start()
         {
-            _timeCounter -= Time.deltaTime;
-            return;
+            _timeCounter = _delay = _range / Speed;
         }
 
-        Push();
-    }
+        private void Update()
+        {
+            if (_timeCounter > 0)
+            {
+                _timeCounter -= Time.deltaTime;
+                return;
+            }
 
-    public override void Hurl(Transform startPoint)
-    {
-        _timeCounter = _delay;
-        base.Hurl(startPoint);
+            Push();
+        }
+
+        public override void Hurl(Transform startPoint)
+        {
+            _timeCounter = _delay;
+            base.Hurl(startPoint);
+        }
     }
 }

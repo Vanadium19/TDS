@@ -1,6 +1,9 @@
-public interface ISpeedController
+namespace Player.Movement
 {
-    public void ResetSpeed();
+    public interface ISpeedController
+    {
+        public void ResetSpeed();
 
-    public void MultiplySpeed(float value);
+        public void MultiplySpeed(float value);
+    }
 }

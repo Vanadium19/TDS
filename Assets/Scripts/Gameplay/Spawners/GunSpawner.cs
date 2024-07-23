@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Bonuses;
 using Gameplay.Spawners;
+using Player;
 using UnityEngine;
 using Zenject;
 

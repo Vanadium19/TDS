@@ -1,38 +1,41 @@
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(Rigidbody))]
-internal class PlayerMover : MonoBehaviour, ISpeedController
+namespace Player.Movement
 {
-    [SerializeField] private float _speed;
-
-    [Inject]
-    private IMoveInput _moveInput;
-    private Rigidbody _rigidbody;
-    private float _currentSpeed;
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    internal class PlayerMover : MonoBehaviour, ISpeedController
     {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
+        [SerializeField] private float _speed;
 
-    private void Start()
-    {
-        ResetSpeed();
-    }
+        [Inject]
+        private IMoveInput _moveInput;
+        private Rigidbody _rigidbody;
+        private float _currentSpeed;
 
-    private void Update()
-    {
-        _rigidbody.velocity = Vector3.up * _rigidbody.velocity.y + _currentSpeed * _moveInput.Value;
-    }
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
 
-    public void MultiplySpeed(float value)
-    {
-        _currentSpeed *= value;
-    }
+        private void Start()
+        {
+            ResetSpeed();
+        }
 
-    public void ResetSpeed()
-    {
-        _currentSpeed = _speed;
+        private void Update()
+        {
+            _rigidbody.velocity = Vector3.up * _rigidbody.velocity.y + _currentSpeed * _moveInput.Value;
+        }
+
+        public void MultiplySpeed(float value)
+        {
+            _currentSpeed *= value;
+        }
+
+        public void ResetSpeed()
+        {
+            _currentSpeed = _speed;
+        }
     }
 }

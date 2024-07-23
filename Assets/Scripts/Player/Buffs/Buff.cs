@@ -1,39 +1,42 @@
 using UnityEngine;
 
-public abstract class Buff : MonoBehaviour
+namespace Player.Buffs
 {
-    private readonly float _duration = 10f;
-
-    private float _durationCounter;
-
-    private void OnEnable()
+    internal abstract class Buff : MonoBehaviour
     {
-        Add();
-    }
+        private readonly float _duration = 10f;
 
-    private void Update()
-    {
-        if (_durationCounter > 0)
+        private float _durationCounter;
+
+        private void OnEnable()
         {
-            _durationCounter -= Time.deltaTime;
-            return;
+            Add();
         }
 
-        Remove();
-    }
+        private void Update()
+        {
+            if (_durationCounter > 0)
+            {
+                _durationCounter -= Time.deltaTime;
+                return;
+            }
 
-    public void ResetTime()
-    {
-        _durationCounter = _duration;
-    }
+            Remove();
+        }
 
-    protected virtual void Add()
-    {
-        ResetTime();
-    }
+        public void ResetTime()
+        {
+            _durationCounter = _duration;
+        }
 
-    protected virtual void Remove()
-    {
-        enabled = false;
+        protected virtual void Add()
+        {
+            ResetTime();
+        }
+
+        protected virtual void Remove()
+        {
+            enabled = false;
+        }
     }
 }

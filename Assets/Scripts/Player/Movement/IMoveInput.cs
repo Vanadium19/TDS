@@ -1,6 +1,9 @@
 using UnityEngine;
 
-internal interface IMoveInput
+namespace Player.Movement
 {
-    public Vector3 Value { get; }
+    public interface IMoveInput
+    {
+        public Vector3 Value { get; }
+    }
 }

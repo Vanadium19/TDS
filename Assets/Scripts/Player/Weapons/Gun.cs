@@ -1,41 +1,45 @@
+using Player.Weapons.Bullets;
 using UnityEngine;
 
-[RequireComponent(typeof(ProjectilesPool))]
-internal class Gun : MonoBehaviour, IGun
+namespace Player.Weapons
 {
-    [SerializeField] private float _delay;
-    [SerializeField] private Transform _startPoint;    
-
-    private ProjectilesPool _pool;
-    private float _delayCounter;
-
-    protected Transform StartPoint => _startPoint;
-
-    private void Awake()
+    [RequireComponent(typeof(ProjectilesPool))]
+    internal class Gun : MonoBehaviour, IGun
     {
-        _pool = GetComponent<ProjectilesPool>();
-    }
+        [SerializeField] private float _delay;
+        [SerializeField] private Transform _startPoint;
 
-    private void Update()
-    {
-        if (_delayCounter >= 0)
-            _delayCounter -= Time.deltaTime;
-    }
+        private ProjectilesPool _pool;
+        private float _delayCounter;
 
-    public void Shoot()
-    {
-        if (_delayCounter >= 0)
-            return;
+        protected Transform StartPoint => _startPoint;
 
-        PutBullet();
+        private void Awake()
+        {
+            _pool = GetComponent<ProjectilesPool>();
+        }
 
-        _delayCounter = _delay;
-    }
+        private void Update()
+        {
+            if (_delayCounter >= 0)
+                _delayCounter -= Time.deltaTime;
+        }
 
-    protected virtual void PutBullet()
-    {
-        var bullet = _pool.Pull();
-        bullet.gameObject.SetActive(true);
-        bullet.Hurl(_startPoint);
+        public void Shoot()
+        {
+            if (_delayCounter >= 0)
+                return;
+
+            PutBullet();
+
+            _delayCounter = _delay;
+        }
+
+        protected virtual void PutBullet()
+        {
+            var bullet = _pool.Pull();
+            bullet.gameObject.SetActive(true);
+            bullet.Hurl(_startPoint);
+        }
     }
 }

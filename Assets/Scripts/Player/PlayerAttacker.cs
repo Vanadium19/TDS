@@ -1,20 +1,23 @@
+using Player.Weapons;
 using UnityEngine;
-using Zenject;
 
-public class PlayerAttacker : MonoBehaviour
+namespace Player
 {
-    private IGun _currentGun;
-
-    private void Update()
+    internal class PlayerAttacker : MonoBehaviour
     {
-        if (Input.GetMouseButtonDown(0))
+        private IGun _currentGun;
+
+        private void Update()
         {
-            _currentGun.Shoot();
+            if (Input.GetMouseButtonDown(0))
+            {
+                _currentGun.Shoot();
+            }
         }
-    }
 
-    public void ChangeGun(IGun gun)
-    {
-        _currentGun = gun;
+        public void ChangeGun(IGun gun)
+        {
+            _currentGun = gun;
+        }
     }
 }

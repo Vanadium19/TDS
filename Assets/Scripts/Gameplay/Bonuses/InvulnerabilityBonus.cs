@@ -1,3 +1,4 @@
+using Player.Buffs;
 using UnityEngine;
 
 namespace Gameplay.Bonuses

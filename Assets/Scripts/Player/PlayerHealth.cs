@@ -1,23 +1,26 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IPlayerHealth
+namespace Player
 {
-    private bool _isInvulnerable;
-
-    public event Action PlayerDied;
-
-    public void Die()
+    internal class PlayerHealth : MonoBehaviour, IPlayerHealth
     {
-        if (_isInvulnerable)
-            return;
+        private bool _isInvulnerable;
 
-        gameObject.SetActive(false);
-        PlayerDied?.Invoke();
-    }
+        public event Action PlayerDied;
 
-    public void SetInvulnerable(bool value)
-    {
-        _isInvulnerable = value;
+        public void Die()
+        {
+            if (_isInvulnerable)
+                return;
+
+            gameObject.SetActive(false);
+            PlayerDied?.Invoke();
+        }
+
+        public void SetInvulnerable(bool value)
+        {
+            _isInvulnerable = value;
+        }
     }
 }

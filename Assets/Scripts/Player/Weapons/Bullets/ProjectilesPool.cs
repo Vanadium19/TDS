@@ -1,37 +1,39 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectilesPool : MonoBehaviour
+namespace Player.Weapons.Bullets
 {
-    [SerializeField] private Projectile _projectilePrefab;
-
-    private Queue<Projectile> _spawnQueue = new Queue<Projectile>();
-    private Transform _transform;
-
-    private void Awake()
+    internal class ProjectilesPool : MonoBehaviour
     {
-        _transform = transform;
-    }
+        [SerializeField] private Projectile _projectilePrefab;
 
-    public void Push(Projectile projectile)
-    {
-        projectile.gameObject.SetActive(false);
-        _spawnQueue.Enqueue(projectile);
-    }
+        private Queue<Projectile> _spawnQueue = new Queue<Projectile>();
+        private Transform _transform;
 
-    public Projectile Pull()
-    {
-        if (_spawnQueue.Count == 0)
-            return CreateProjectile();
+        private void Awake()
+        {
+            _transform = transform;
+        }
 
-        return _spawnQueue.Dequeue();
-    }
+        public void Push(Projectile projectile)
+        {
+            projectile.gameObject.SetActive(false);
+            _spawnQueue.Enqueue(projectile);
+        }
 
-    private Projectile CreateProjectile()
-    {
-        var projectile = Instantiate(_projectilePrefab, _transform.position, Quaternion.identity);
-        projectile.Initialize(this);
-        return projectile;
+        public Projectile Pull()
+        {
+            if (_spawnQueue.Count == 0)
+                return CreateProjectile();
+
+            return _spawnQueue.Dequeue();
+        }
+
+        private Projectile CreateProjectile()
+        {
+            var projectile = Instantiate(_projectilePrefab, _transform.position, Quaternion.identity);
+            projectile.Initialize(this);
+            return projectile;
+        }
     }
 }

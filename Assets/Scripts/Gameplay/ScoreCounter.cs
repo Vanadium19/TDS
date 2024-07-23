@@ -1,5 +1,6 @@
-using Enemies;
 using System;
+using Enemies;
+using Player;
 using UnityEngine;
 using Zenject;
 

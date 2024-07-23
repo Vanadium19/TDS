@@ -1,4 +1,7 @@
-public interface IGun
+namespace Player.Weapons
 {
-    public void Shoot();
+    public interface IGun
+    {
+        public void Shoot();
+    }
 }

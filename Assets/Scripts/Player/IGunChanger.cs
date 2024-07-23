@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Player.Weapons;
 
-public interface IGunChanger
+namespace Player
 {
-    public GunName CurrentGun { get; }
+    public interface IGunChanger
+    {
+        public GunName CurrentGun { get; }
 
-    public void ChangeGun(GunName gun);
+        public void ChangeGun(GunName gun);
+    }
 }
