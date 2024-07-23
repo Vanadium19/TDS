@@ -1,58 +1,61 @@
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(EnemiesPool))]
-public class EnemySpawner : MonoBehaviour
-{    
-    private readonly float _minDelay = 0.5f;
-
-    [SerializeField] private Transform _player;
-    [SerializeField] private SpawnZone _spawnZone;
-    [SerializeField] private float _delay = 2f;
-
-    [Inject]
-    private IScoreCounter _scoreCounter;
-    private EnemiesPool _pool;
-    private float _delayCounter;
-
-    private void Awake()
+namespace Gameplay.Spawners
+{
+    [RequireComponent(typeof(EnemiesPool))]
+    internal class EnemySpawner : MonoBehaviour
     {
-        _pool = GetComponent<EnemiesPool>();
-    }
+        private readonly float _minDelay = 0.5f;
 
-    private void Update()
-    {
-        if (_delayCounter > 0)
+        [SerializeField] private Transform _player;
+        [SerializeField] private SpawnZone _spawnZone;
+        [SerializeField] private float _delay = 2f;
+
+        [Inject]
+        private IScoreCounter _scoreCounter;
+        private EnemiesPool _pool;
+        private float _delayCounter;
+
+        private void Awake()
         {
-            _delayCounter -= Time.deltaTime;
-            return;
+            _pool = GetComponent<EnemiesPool>();
         }
 
-        Spawn();
-    }
+        private void Update()
+        {
+            if (_delayCounter > 0)
+            {
+                _delayCounter -= Time.deltaTime;
+                return;
+            }
 
-    public void SubstractDelay(float value)
-    {
-        if (value <= 0 || _delay <= _minDelay)
-            return;
+            Spawn();
+        }
 
-        _delay -= value;
-    }
+        public void SubstractDelay(float value)
+        {
+            if (value <= 0 || _delay <= _minDelay)
+                return;
 
-    private void Spawn()
-    {
-        Vector3 position = _spawnZone.GetBehindScreenPoint();
+            _delay -= value;
+        }
 
-        CreateEnemy(position);
+        private void Spawn()
+        {
+            Vector3 position = _spawnZone.GetBehindScreenPoint();
 
-        _delayCounter = _delay;
-    }
+            CreateEnemy(position);
 
-    private void CreateEnemy(Vector3 position)
-    {
-        var enemy = Instantiate(_pool.GetRandomEnemy(), position, Quaternion.identity);
+            _delayCounter = _delay;
+        }
 
-        enemy.Initialize(_player);
-        _scoreCounter.AddEnemy(enemy);
+        private void CreateEnemy(Vector3 position)
+        {
+            var enemy = Instantiate(_pool.GetRandomEnemy(), position, Quaternion.identity);
+
+            enemy.Initialize(_player);
+            _scoreCounter.AddEnemy(enemy);
+        }
     }
 }

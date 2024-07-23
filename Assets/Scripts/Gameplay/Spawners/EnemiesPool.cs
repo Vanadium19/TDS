@@ -1,37 +1,40 @@
+using System.Linq;
 using Enemies;
 using Enemies.Configs;
-using System.Linq;
 using UnityEngine;
 
-public class EnemiesPool : MonoBehaviour
+namespace Gameplay.Spawners
 {
-    private readonly int _minPercent = 1;
-    private readonly int _maxPercent = 100;
-
-    [SerializeField] private Enemy[] _enemies;
-
-    private void Awake()
+    internal class EnemiesPool : MonoBehaviour
     {
-        if (_enemies.Sum(enemy => enemy.SpawnChance) != _maxPercent)
-            throw new System.ArgumentOutOfRangeException(nameof(EnemyParameters.SpawnChance));
+        private readonly int _minPercent = 1;
+        private readonly int _maxPercent = 100;
 
-        _enemies = _enemies.OrderBy(enemy => enemy.SpawnChance).ToArray();
-    }
+        [SerializeField] private Enemy[] _enemies;
 
-    public Enemy GetRandomEnemy()
-    {
-        int currentChance = 0;
-        int result = Random.Range(_minPercent, _maxPercent);
-
-        foreach (var enemy in _enemies)
+        private void Awake()
         {
-            currentChance += enemy.SpawnChance;
+            if (_enemies.Sum(enemy => enemy.SpawnChance) != _maxPercent)
+                throw new System.ArgumentOutOfRangeException(nameof(EnemyParameters.SpawnChance));
 
-            if (result <= currentChance)
-                return enemy;
-
+            _enemies = _enemies.OrderBy(enemy => enemy.SpawnChance).ToArray();
         }
 
-        return null;
+        public Enemy GetRandomEnemy()
+        {
+            int currentChance = 0;
+            int result = Random.Range(_minPercent, _maxPercent);
+
+            foreach (var enemy in _enemies)
+            {
+                currentChance += enemy.SpawnChance;
+
+                if (result <= currentChance)
+                    return enemy;
+
+            }
+
+            return null;
+        }
     }
 }

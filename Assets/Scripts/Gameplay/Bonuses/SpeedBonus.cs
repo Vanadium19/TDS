@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class SpeedBonus : Bonus
+namespace Gameplay.Bonuses
 {
-    private void OnTriggerEnter(Collider other)
+    internal class SpeedBonus : Bonus
     {
-        if (other.TryGetComponent(out SpeedBuff buff))
+        private void OnTriggerEnter(Collider other)
         {
-            if (buff.enabled)
-                buff.ResetTime();
-            else
-                buff.enabled = true;
+            if (other.TryGetComponent(out SpeedBuff buff))
+            {
+                if (buff.enabled)
+                    buff.ResetTime();
+                else
+                    buff.enabled = true;
 
-            gameObject.SetActive(false);
+                gameObject.SetActive(false);
+            }
         }
     }
 }

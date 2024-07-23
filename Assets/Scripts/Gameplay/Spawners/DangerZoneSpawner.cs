@@ -1,34 +1,37 @@
 using UnityEngine;
 
-public class DangerZoneSpawner : MonoBehaviour
+namespace Gameplay.Spawners
 {
-    private readonly float _minDistance = 3f;
-
-    [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private SpawnZone _spawnZone;
-    [SerializeField] private SphereCollider _dangerZone;
-    [SerializeField] private int _count;
-
-    private void Start()
+    internal class DangerZoneSpawner : MonoBehaviour
     {
-        Spawn();
-    }
-  
-    private void Spawn()
-    {
-        for (int i = 0; i < _count; i++)
+        private readonly float _minDistance = 3f;
+
+        [SerializeField] private LayerMask _layerMask;
+        [SerializeField] private SpawnZone _spawnZone;
+        [SerializeField] private SphereCollider _dangerZone;
+        [SerializeField] private int _count;
+
+        private void Start()
         {
-            Vector3 position = Vector3.zero;
-            var colliders = new Collider[_count];
+            Spawn();
+        }
 
-            while (colliders.Length != 0)
+        private void Spawn()
+        {
+            for (int i = 0; i < _count; i++)
             {
-                position = _spawnZone.GetRandomPointInZone();
+                Vector3 position = Vector3.zero;
+                var colliders = new Collider[_count];
 
-                colliders = Physics.OverlapSphere(position, _dangerZone.radius + _minDistance, _layerMask);
+                while (colliders.Length != 0)
+                {
+                    position = _spawnZone.GetRandomPointInZone();
+
+                    colliders = Physics.OverlapSphere(position, _dangerZone.radius + _minDistance, _layerMask);
+                }
+
+                Instantiate(_dangerZone, position, Quaternion.identity);
             }
-
-            Instantiate(_dangerZone, position, Quaternion.identity);
         }
     }
 }

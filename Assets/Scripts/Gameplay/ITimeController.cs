@@ -1,6 +1,9 @@
-public interface ITimeController
+namespace Gameplay
 {
-    public void ContinueGame();
+    public interface ITimeController
+    {
+        public void ContinueGame();
 
-    public void StopGame();
+        public void StopGame();
+    }
 }

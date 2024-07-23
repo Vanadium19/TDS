@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class TimeController : MonoBehaviour, ITimeController
+namespace Gameplay
 {
-    private readonly float _pauseTimeScale = 0f;
-    private readonly float _playTimeScale = 1f;
-
-    public void ContinueGame()
+    internal class TimeController : MonoBehaviour, ITimeController
     {
-        Time.timeScale = _playTimeScale;
-    }
+        private readonly float _pauseTimeScale = 0f;
+        private readonly float _playTimeScale = 1f;
 
-    public void StopGame()
-    {
-        Time.timeScale = _pauseTimeScale;
+        public void ContinueGame()
+        {
+            Time.timeScale = _playTimeScale;
+        }
+
+        public void StopGame()
+        {
+            Time.timeScale = _pauseTimeScale;
+        }
     }
 }

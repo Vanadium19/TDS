@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class Bonus : MonoBehaviour
+namespace Gameplay.Bonuses
 {
-    [SerializeField] private float _delay = 5f;
-
-    private float _delayCounter;
-
-    private void OnEnable()
+    internal class Bonus : MonoBehaviour
     {
-        _delayCounter = _delay;
-    }
+        [SerializeField] private float _delay = 5f;
 
-    private void Update()
-    {
-        if (_delayCounter > 0)
+        private float _delayCounter;
+
+        private void OnEnable()
         {
-            _delayCounter -= Time.deltaTime;
-            return;
+            _delayCounter = _delay;
         }
 
-        gameObject.SetActive(false);
+        private void Update()
+        {
+            if (_delayCounter > 0)
+            {
+                _delayCounter -= Time.deltaTime;
+                return;
+            }
+
+            gameObject.SetActive(false);
+        }
     }
 }

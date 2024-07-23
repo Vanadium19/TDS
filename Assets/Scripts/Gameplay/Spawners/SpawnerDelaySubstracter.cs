@@ -1,33 +1,36 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemySpawner))]
-public class SpawnerDelaySubstracter : MonoBehaviour
+namespace Gameplay.Spawners
 {
-    [SerializeField] private float _subtrahendValue = 0.1f;
-    [SerializeField] private float _delay = 10f;
-
-    private EnemySpawner _spawner;
-    private float _delayCounter;
-
-    private void Awake()
+    [RequireComponent(typeof(EnemySpawner))]
+    internal class SpawnerDelaySubstracter : MonoBehaviour
     {
-        _spawner = GetComponent<EnemySpawner>();
-    }
+        [SerializeField] private float _subtrahendValue = 0.1f;
+        [SerializeField] private float _delay = 10f;
 
-    private void Start()
-    {
-        _delayCounter = _delay;
-    }
+        private EnemySpawner _spawner;
+        private float _delayCounter;
 
-    private void Update()
-    {
-        if (_delayCounter > 0)
+        private void Awake()
         {
-            _delayCounter -= Time.deltaTime;
-            return;
+            _spawner = GetComponent<EnemySpawner>();
         }
 
-        _spawner.SubstractDelay(_subtrahendValue);
-        _delayCounter = _delay;
+        private void Start()
+        {
+            _delayCounter = _delay;
+        }
+
+        private void Update()
+        {
+            if (_delayCounter > 0)
+            {
+                _delayCounter -= Time.deltaTime;
+                return;
+            }
+
+            _spawner.SubstractDelay(_subtrahendValue);
+            _delayCounter = _delay;
+        }
     }
 }

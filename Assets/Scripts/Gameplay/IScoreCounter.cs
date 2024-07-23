@@ -1,11 +1,14 @@
-using Enemies;
 using System;
+using Enemies;
 
-public interface IScoreCounter
+namespace Gameplay
 {
-    public event Action<int> ScoreChanged;
+    public interface IScoreCounter
+    {
+        public event Action<int> ScoreChanged;
 
-    public int Score { get; }
+        public int Score { get; }
 
-    public void AddEnemy(IDamageable enemy);
+        public void AddEnemy(IDamageable enemy);
+    }
 }

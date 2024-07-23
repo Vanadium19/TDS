@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Gameplay.Bonuses;
+using Gameplay.Spawners;
 using UnityEngine;
 using Zenject;
 
-public class GunSpawner : BonusSpawner
+internal class GunSpawner : BonusSpawner
 {
     private readonly float _spawnAngleX = 90f;
     private readonly float _minSpawnAngleY = 0f;

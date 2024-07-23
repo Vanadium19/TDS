@@ -1,53 +1,56 @@
 using UnityEngine;
 
-public abstract class BonusSpawner : MonoBehaviour
+namespace Gameplay.Spawners
 {
-    private readonly float _spawnPositionZ = 10f;
-    private readonly float _minCameraPosition = 0.1f;
-    private readonly float _maxCameraPosition = 0.9f;
-
-    [SerializeField] private float _delay = 10f;
-    
-    private Camera _camera;
-    private float _delayCounter;
-
-    private void Awake()
+    internal abstract class BonusSpawner : MonoBehaviour
     {
-        _camera = Camera.main;
-    }
+        private readonly float _spawnPositionZ = 10f;
+        private readonly float _minCameraPosition = 0.1f;
+        private readonly float _maxCameraPosition = 0.9f;
 
-    private void Start()
-    {
-        _delayCounter = _delay;
-    }
+        [SerializeField] private float _delay = 10f;
 
-    private void Update()
-    {
-        if (_delayCounter > 0)
-            _delayCounter -= Time.deltaTime;
+        private Camera _camera;
+        private float _delayCounter;
 
-        Spawn();
-    }
+        private void Awake()
+        {
+            _camera = Camera.main;
+        }
 
-    private void Spawn()
-    {
-        if (_delayCounter > 0)
-            return;
+        private void Start()
+        {
+            _delayCounter = _delay;
+        }
 
-        SpawnBonus(GetRandomPosition());
+        private void Update()
+        {
+            if (_delayCounter > 0)
+                _delayCounter -= Time.deltaTime;
 
-        _delayCounter = _delay;
-    }
+            Spawn();
+        }
 
-    protected abstract void SpawnBonus(Vector3 position);
+        private void Spawn()
+        {
+            if (_delayCounter > 0)
+                return;
 
-    private Vector3 GetRandomPosition()
-    {
-        var screenPoint = new Vector3(
-            Random.Range(_minCameraPosition, _maxCameraPosition),
-            Random.Range(_minCameraPosition, _maxCameraPosition),
-            _spawnPositionZ);
+            SpawnBonus(GetRandomPosition());
 
-        return _camera.ViewportToWorldPoint(screenPoint);
+            _delayCounter = _delay;
+        }
+
+        protected abstract void SpawnBonus(Vector3 position);
+
+        private Vector3 GetRandomPosition()
+        {
+            var screenPoint = new Vector3(
+                Random.Range(_minCameraPosition, _maxCameraPosition),
+                Random.Range(_minCameraPosition, _maxCameraPosition),
+                _spawnPositionZ);
+
+            return _camera.ViewportToWorldPoint(screenPoint);
+        }
     }
 }
