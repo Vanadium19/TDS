@@ -3,8 +3,8 @@ using UnityEngine;
 public abstract class BonusSpawner : MonoBehaviour
 {
     private readonly float _spawnPositionZ = 10f;
-    private readonly float _minCameraPosition = 0f;
-    private readonly float _maxCameraPosition = 1f;
+    private readonly float _minCameraPosition = 0.1f;
+    private readonly float _maxCameraPosition = 0.9f;
 
     [SerializeField] private float _delay = 10f;
     
@@ -14,6 +14,11 @@ public abstract class BonusSpawner : MonoBehaviour
     private void Awake()
     {
         _camera = Camera.main;
+    }
+
+    private void Start()
+    {
+        _delayCounter = _delay;
     }
 
     private void Update()

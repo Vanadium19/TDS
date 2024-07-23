@@ -3,7 +3,7 @@ using Zenject;
 
 public class GameFinisher : MonoBehaviour
 {
-    [SerializeField] private GameObject _gameOverPanel;
+    [SerializeField] private GameOverView _gameOverView;
 
     [Inject]
     private IPlayerHealth _player;
@@ -23,6 +23,7 @@ public class GameFinisher : MonoBehaviour
     private void OnPlayerDied()
     {
         _timeController.StopGame();
-        _gameOverPanel.SetActive(true);
+        _gameOverView.gameObject.SetActive(true);
+        _gameOverView.DisplayScore();
     }
 }

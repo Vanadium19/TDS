@@ -13,5 +13,6 @@ public static class GameSaver
             return;
 
         PlayerPrefs.SetInt(_score, score);
+        PlayerPrefs.Save();
     }
 }

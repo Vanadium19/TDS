@@ -11,6 +11,8 @@ public class ScoreCounter : MonoBehaviour, IScoreCounter
 
     private int _score;
 
+    public int Score => _score;
+
     private void OnEnable()
     {
         _player.PlayerDied += OnPlayerDied;
