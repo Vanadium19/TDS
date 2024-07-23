@@ -1,7 +1,10 @@
-public static class ExtensionMethods
+namespace Utils
 {
-    public static bool IsBetween(this float value, float minValue, float maxValue)
+    public static class ExtensionMethods
     {
-        return value > minValue && value < maxValue;
+        public static bool IsBetween(this float value, float minValue, float maxValue)
+        {
+            return value > minValue && value < maxValue;
+        }
     }
 }
