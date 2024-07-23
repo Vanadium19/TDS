@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour, IPlayerHealth
         if (_isInvulnerable)
             return;
 
+        gameObject.SetActive(false);
         PlayerDied?.Invoke();
     }
 

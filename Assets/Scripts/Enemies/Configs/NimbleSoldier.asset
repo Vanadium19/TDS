@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NimbleSoldier
   m_EditorClassIdentifier: 
   _spawnChance: 30
-  _rewardPoint: 12
+  _score: 12
   _health: 10
   _speed: 4

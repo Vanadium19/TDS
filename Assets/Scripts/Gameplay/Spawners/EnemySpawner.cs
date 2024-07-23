@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(EnemiesPool))]
 public class EnemySpawner : MonoBehaviour
@@ -9,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private SpawnZone _spawnZone;
     [SerializeField] private float _delay = 2f;
 
+    [Inject]
+    private IScoreCounter _scoreCounter;
     private EnemiesPool _pool;
     private float _delayCounter;
 
@@ -40,8 +43,16 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector3 position = _spawnZone.GetBehindScreenPoint();
 
-        Instantiate(_pool.GetRandomEnemy(), position, Quaternion.identity).Initialize(_player);
+        CreateEnemy(position);
 
         _delayCounter = _delay;
-    }  
+    }
+
+    private void CreateEnemy(Vector3 position)
+    {
+        var enemy = Instantiate(_pool.GetRandomEnemy(), position, Quaternion.identity);
+
+        enemy.Initialize(_player);
+        _scoreCounter.AddEnemy(enemy);
+    }
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ArmoredSoldier
   m_EditorClassIdentifier: 
   _spawnChance: 10
-  _rewardPoint: 30
+  _score: 30
   _health: 50
   _speed: 2

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
@@ -7,6 +8,8 @@ public class Enemy : MonoBehaviour, IDamageable
     
     private float _health;
     private EnemyMover _mover;
+
+    public event Action<IDamageable, int> EnemyDied;
 
     public int SpawnChance => _enemyParameters.SpawnChance;
 
@@ -37,6 +40,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        Destroy(gameObject);        
+        EnemyDied?.Invoke(this, _enemyParameters.Score);
+        Destroy(gameObject);
     }
 }

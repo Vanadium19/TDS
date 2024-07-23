@@ -1,9 +1,14 @@
 using UnityEngine;
+using Zenject;
 
 public class GameFinisher : MonoBehaviour
 {
-    [SerializeField] private PlayerHealth _player;
     [SerializeField] private GameObject _gameOverPanel;
+
+    [Inject]
+    private IPlayerHealth _player;
+    [Inject]
+    private ITimeController _timeController;
 
     private void OnEnable()
     {
@@ -17,6 +22,7 @@ public class GameFinisher : MonoBehaviour
 
     private void OnPlayerDied()
     {
+        _timeController.StopGame();
         _gameOverPanel.SetActive(true);
     }
 }
