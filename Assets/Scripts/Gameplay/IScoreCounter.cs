@@ -1,3 +1,4 @@
+using Enemies;
 using System;
 
 public interface IScoreCounter
