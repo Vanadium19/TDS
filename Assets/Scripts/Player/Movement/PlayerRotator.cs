@@ -1,51 +1,53 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 internal class PlayerRotator : MonoBehaviour
 {
-    private readonly float _cursorPositionZ = 15f;
-    private readonly float _lookPositionY = 0f;
+    private readonly float _angleError = 2.5f;
 
+    [SerializeField] private float _angularSpeed = 180f;
+
+    private float _speed;
     private Camera _camera;
     private Transform _transform;
-    private Vector3 _mousePosition;
-    private Vector3 _cursorPosition;
+    private Rigidbody _rigidbody;
     private Vector3 _lookPosition;
-    private Vector3 _lastMousePosition;
+    private float _cursorPositionZ;
 
     private void Awake()
     {
         _camera = Camera.main;
         _transform = transform;
+        _rigidbody = GetComponent<Rigidbody>();
+        _speed = Mathf.Deg2Rad * _angularSpeed;
+        _cursorPositionZ = _camera.transform.position.y;
     }
 
     private void Update()
     {
-        _mousePosition = Input.mousePosition;
-
-        if (_mousePosition != _lastMousePosition)
-        {
-            Rotate();
-            _lastMousePosition = _mousePosition;
-        }
+        Rotate();
     }
 
     private void Rotate()
     {
-        CalculateCursorPosition();
         CalculateLookPosition();
 
-        _transform.rotation = Quaternion.LookRotation(_lookPosition);        
-    }
+        float angle = Vector3.SignedAngle(_transform.forward, _lookPosition, Vector3.up);
 
-    private void CalculateCursorPosition()
-    {
-        _cursorPosition = new Vector3(_mousePosition.x, _mousePosition.y, _cursorPositionZ);
-        _cursorPosition = _camera.ScreenToWorldPoint(_cursorPosition);
+        if (Mathf.Abs(angle) <= _angleError)
+            _rigidbody.angularVelocity = Vector3.zero;
+        else
+            _rigidbody.angularVelocity = angle > 0 ? Vector3.up * _speed : Vector3.down * _speed;
     }
 
     private void CalculateLookPosition()
     {
-        _lookPosition = _cursorPosition - _transform.position;
-        _lookPosition.y = _lookPositionY;
+        var mousePosition = Input.mousePosition;
+
+        var cursorPosition = new Vector3(mousePosition.x, mousePosition.y, _cursorPositionZ);
+        cursorPosition = _camera.ScreenToWorldPoint(cursorPosition);
+
+        cursorPosition.y = _transform.position.y;
+        _lookPosition = (cursorPosition - _transform.position).normalized;
     }
 }
