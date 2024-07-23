@@ -3,26 +3,29 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class GameOverView : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private GameObject _newRecordTitle;
-    [SerializeField] private TMP_Text _scoreText;
-
-    [Inject]
-    private IScoreCounter _scoreCounter;
-
-    public void DisplayScore()
+    internal class GameOverView : MonoBehaviour
     {
-        _scoreText.text = _scoreCounter.Score.ToString();
+        [SerializeField] private GameObject _newRecordTitle;
+        [SerializeField] private TMP_Text _scoreText;
 
-        if (_scoreCounter.Score > GameSaver.Score)
-            _newRecordTitle.SetActive(true);
-    }
+        [Inject]
+        private IScoreCounter _scoreCounter;
 
-    [ContextMenu("Reset")]
-    public void Reset()
-    {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
+        public void DisplayScore()
+        {
+            _scoreText.text = _scoreCounter.Score.ToString();
+
+            if (_scoreCounter.Score > GameSaver.Score)
+                _newRecordTitle.SetActive(true);
+        }
+
+        [ContextMenu("Reset")]
+        public void Reset()
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+        }
     }
 }

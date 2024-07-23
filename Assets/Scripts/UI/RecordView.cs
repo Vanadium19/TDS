@@ -2,12 +2,15 @@ using Gameplay;
 using TMPro;
 using UnityEngine;
 
-public class RecordView : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TMP_Text _recordScore;
-
-    private void Start()
+    internal class RecordView : MonoBehaviour
     {
-        _recordScore.text = $"Record: {GameSaver.Score}";
+        [SerializeField] private TMP_Text _recordScore;
+
+        private void Start()
+        {
+            _recordScore.text = $"Record: {GameSaver.Score}";
+        }
     }
 }
