@@ -30,7 +30,7 @@ namespace Gameplay.Spawners
                     colliders = Physics.OverlapSphere(position, _dangerZone.radius + _minDistance, _layerMask);
                 }
 
-                Instantiate(_dangerZone, position, Quaternion.identity);
+                Instantiate(_dangerZone, position, Quaternion.identity, transform);
             }
         }
     }

@@ -22,6 +22,7 @@ namespace Enemies
             _direction = Vector3.ProjectOnPlane(_target.position - _transform.position, Vector3.up).normalized;
 
             _rigidbody.velocity = _direction * _speed + Vector3.up * _rigidbody.velocity.y;
+            _transform.LookAt(_target);
         }
 
         public void Initialize(Transform target, float speed)
