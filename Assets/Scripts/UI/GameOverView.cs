@@ -1,0 +1,24 @@
+using Gameplay;
+using TMPro;
+using UnityEngine;
+using Zenject;
+
+namespace UI
+{
+    internal class GameOverView : MonoBehaviour
+    {
+        [SerializeField] private GameObject _newRecordTitle;
+        [SerializeField] private TMP_Text _scoreText;
+
+        [Inject]
+        private IScoreCounter _scoreCounter;
+
+        public void DisplayScore()
+        {
+            _scoreText.text = _scoreCounter.Score.ToString();
+
+            if (_scoreCounter.Score > GameSaver.Score)
+                _newRecordTitle.SetActive(true);
+        }
+    }
+}
