@@ -1,8 +1,11 @@
 using System;
 
-public interface IDamageable
+namespace Enemies
 {
-    public event Action<IDamageable, int> EnemyDied;
+    public interface IDamageable
+    {
+        public event Action<IDamageable, int> EnemyDied;
 
-    public void TakeDamage(float value);
+        public void TakeDamage(float value);
+    }
 }
